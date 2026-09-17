@@ -4,155 +4,874 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NovaWeb</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#222}
-header{background:#0759c9;color:white;padding:20px;text-align:center}.logo{font-size:32px;font-weight:bold}
-nav{background:white;padding:12px;text-align:center;position:sticky;top:0;z-index:1000;box-shadow:0 2px 8px #0002}
-nav a{text-decoration:none;color:#0759c9;margin:5px;font-weight:bold;display:inline-block}
-section{padding:30px 20px;max-width:1100px;margin:auto}.hero{text-align:center;background:#dcecff;padding:60px 20px;max-width:none}
-.hero h1{font-size:40px;color:#0759c9}button{border:none;background:#0759c9;color:white;padding:10px 15px;border-radius:8px;cursor:pointer;margin:4px}
-button:hover{opacity:.85}input,select,textarea{width:100%;padding:12px;margin:6px 0;border:1px solid #ccc;border-radius:8px}
-.form-box{background:white;padding:20px;border-radius:12px;box-shadow:0 3px 12px #0002;margin:15px 0}
-.produits{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.produit{background:white;padding:15px;border-radius:12px;box-shadow:0 3px 12px #0002;text-align:center}
-.produit img{width:100%;height:200px;object-fit:cover;border-radius:10px}.prix{color:#0759c9;font-size:20px;font-weight:bold}
-.cart-item,.commande-item,.avis-item{background:white;padding:15px;margin:10px 0;border-radius:10px;box-shadow:0 2px 8px #0001}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px}.stat{background:white;padding:20px;border-radius:12px;text-align:center;box-shadow:0 3px 10px #0002}
-.stat strong{display:block;font-size:28px;color:#0759c9}.modal{display:none;position:fixed;inset:0;background:#0008;z-index:3000;padding:30px;overflow:auto}
-.modal-content{background:white;max-width:500px;margin:50px auto;padding:25px;border-radius:15px}
-.notification{position:fixed;top:20px;right:20px;z-index:5000;background:white;color:#222;padding:15px 20px;border-radius:12px;box-shadow:0 4px 15px #0004;border-left:5px solid #0759c9;max-width:350px;display:none}
-.notification strong{color:#0759c9}.notification button{background:#e53935;float:right;padding:5px 9px}
-.compte-connecte{background:#e8f1ff;padding:15px;border-radius:10px;margin-bottom:15px}.star{font-size:30px;cursor:pointer;color:#aaa}.star.active{color:gold}
-footer{background:#0759c9;color:white;text-align:center;padding:25px;margin-top:40px}.status{display:inline-block;padding:6px 10px;border-radius:20px;background:#eee;font-weight:bold}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  color:#222;
+}
+header{
+  background:#0759c9;
+  color:white;
+  padding:20px;
+  text-align:center;
+}
+header h1{margin:0;font-size:32px}
+header p{margin:8px 0 0}
+
+nav{
+  background:white;
+  padding:12px;
+  text-align:center;
+  box-shadow:0 2px 8px #ccc;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+nav a{
+  text-decoration:none;
+  color:#0759c9;
+  margin:5px;
+  font-weight:bold;
+  display:inline-block;
+}
+
+section{
+  padding:30px 20px;
+  max-width:1100px;
+  margin:auto;
+}
+.hero{
+  text-align:center;
+  padding:60px 20px;
+}
+.hero h2{
+  font-size:40px;
+  color:#0759c9;
+}
+button{
+  background:#0759c9;
+  color:white;
+  border:0;
+  padding:12px 18px;
+  border-radius:8px;
+  cursor:pointer;
+  margin:5px;
+}
+button:hover{opacity:.9}
+
+input,select,textarea{
+  width:100%;
+  padding:12px;
+  margin:7px 0;
+  border:1px solid #ccc;
+  border-radius:8px;
+}
+
+.categories{
+  text-align:center;
+  margin:15px 0;
+}
+
+#listeProduits{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
+.produit{
+  background:white;
+  padding:18px;
+  border-radius:12px;
+  box-shadow:0 2px 10px #ddd;
+  text-align:center;
+}
+.produit img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:8px;
+  background:#eee;
+}
+.produit h3{color:#0759c9}
+.prix{
+  font-size:20px;
+  font-weight:bold;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  margin:15px 0;
+  box-shadow:0 2px 8px #ddd;
+}
+
+footer{
+  background:#0759c9;
+  color:white;
+  text-align:center;
+  padding:25px;
+  margin-top:30px;
+}
+
+.hidden{display:none}
+.etoile{
+  font-size:25px;
+  color:#f5b400;
+}
+
+#notification{
+  position:fixed;
+  right:15px;
+  bottom:15px;
+  background:#0759c9;
+  color:white;
+  padding:15px;
+  border-radius:10px;
+  display:none;
+  z-index:20;
+}
+
+.chat-message{
+  background:#f0f4fa;
+  padding:10px;
+  margin:6px 0;
+  border-radius:8px;
+}
 </style>
 </head>
+
 <body>
-<header><div class="logo">NovaWeb</div><p>Votre boutique en ligne</p></header>
+
+<header>
+<h1>NovaWeb</h1>
+<p>Votre boutique en ligne</p>
+</header>
+
 <nav>
-<a href="#accueil">Accueil</a><a href="#produits">Produits</a><a href="#panier">🛒 Panier</a>
-<a href="#favoris">❤️ Favoris</a><a href="#suivi">🔎 Suivi</a><a href="#avis">⭐ Avis</a>
-<a href="#chat">💬 Chat</a><a href="#compte">👤 Compte</a><a href="#admin">⚙️ Admin</a>
+<a href="#accueil">Accueil</a>
+<a href="#produits">Produits</a>
+<a href="#panier">🛒 Panier</a>
+<a href="#favoris">❤️ Favoris</a>
+<a href="#suivi">🔎 Suivi</a>
+<a href="#avis">⭐ Avis</a>
+<a href="#chat">💬 Chat</a>
+<a href="#compte">👤 Compte</a>
+<a href="#admin">⚙️ Admin</a>
 </nav>
-<section id="accueil" class="hero"><h1>Bienvenue sur NovaWeb</h1><p>Découvrez nos produits et commandez facilement.</p>
-<button onclick="document.getElementById('produits').scrollIntoView()">Découvrir les produits</button></section>
 
-<section id="produits"><h2>🛍️ Nos produits</h2>
-<input id="recherche" placeholder="🔎 Rechercher un produit..." oninput="afficherProduits()">
-<div class="categories"><button onclick="choisirCategorie('Tous')">🛍️ Tous</button><button onclick="choisirCategorie('Vêtements')">👕 Vêtements</button><button onclick="choisirCategorie('Chaussures')">👟 Chaussures</button><button onclick="choisirCategorie('Accessoires')">🎒 Accessoires</button></div>
-<div id="listeProduits" class="produits"></div></section>
+<section id="accueil" class="hero">
+<h2>Bienvenue sur NovaWeb</h2>
+<p>Découvrez nos produits et commandez facilement.</p>
+<button onclick="document.getElementById('produits').scrollIntoView()">Voir les produits</button>
+</section>
 
-<section id="panier"><h2>🛒 Mon panier</h2><div id="contenuPanier"></div><h3 id="totalPanier">Total : 0 FCFA</h3>
-<button onclick="viderPanier()">🗑️ Vider le panier</button><button onclick="ouvrirCommande()">Commander</button></section>
+<section id="produits">
+<h2>🛍️ Nos produits</h2>
 
-<section id="commande" style="display:none"><h2>📦 Livraison</h2><div class="form-box">
-<input id="nomClient" placeholder="Nom complet"><input id="telephoneClient" placeholder="Téléphone"><textarea id="adresseClient" placeholder="Adresse de livraison"></textarea>
-<button onclick="passerAuPaiement()">Continuer</button></div></section>
+<input type="text" id="recherche" placeholder="Rechercher un produit..." oninput="afficherProduits()">
 
-<section id="paiement" style="display:none"><h2>💳 Paiement</h2><div class="form-box">
-<select id="modePaiement" onchange="afficherChampMobile()"><option value="">Choisir le paiement</option><option value="Mobile Money">📱 Mobile Money</option><option value="Paiement à la livraison">💵 Paiement à la livraison</option></select>
-<div id="champMobile"></div><button onclick="confirmerCommande()">Confirmer la commande</button></div></section>
+<div class="categories">
+<button onclick="changerCategorie('Tous')">Tous</button>
+<button onclick="changerCategorie('Vêtements')">Vêtements</button>
+<button onclick="changerCategorie('Chaussures')">Chaussures</button>
+<button onclick="changerCategorie('Accessoires')">Accessoires</button>
+</div>
 
-<section id="suivi"><h2>🔎 Suivre ma commande</h2><div class="form-box">
-<input id="numeroSuivi" placeholder="Exemple : NW-123456"><button onclick="suivreCommande()">Rechercher</button><div id="resultatSuivi"></div></div></section>
+<div id="listeProduits"></div>
+</section>
 
-<section id="favoris"><h2>❤️ Mes favoris</h2><div id="listeFavoris" class="produits"></div></section>
+<section id="panier">
+<h2>🛒 Mon panier</h2>
+<div id="contenuPanier"></div>
+<h3>Total : <span id="total">0</span> FCFA</h3>
+<button onclick="viderPanier()">Vider le panier</button>
+<button onclick="allerCommander()">Commander</button>
+</section>
 
-<section id="avis"><h2>⭐ Avis clients</h2><div class="form-box">
-<input id="nomAvis" placeholder="Votre nom"><textarea id="texteAvis" placeholder="Écrivez votre avis..."></textarea><p>Votre note :</p>
-<div id="etoiles"><span class="star" onclick="choisirNote(1)">★</span><span class="star" onclick="choisirNote(2)">★</span><span class="star" onclick="choisirNote(3)">★</span><span class="star" onclick="choisirNote(4)">★</span><span class="star" onclick="choisirNote(5)">★</span></div>
-<button onclick="ajouterAvis()">Publier mon avis</button></div><div id="listeAvis"></div></section>
+<section id="commande">
+<h2>📦 Livraison</h2>
 
-<section id="chat"><h2>💬 Chat NovaWeb</h2><div class="form-box">
-<div id="messagesChat" style="height:300px;overflow:auto;background:#f4f4f4;padding:10px;border-radius:10px"></div>
-<input id="messageChat" placeholder="Écrivez votre message..."><button onclick="envoyerMessage()">Envoyer</button>
-<div><button onclick="messageRapide('produits')">🛍️ Produits</button><button onclick="messageRapide('commande')">📦 Commande</button><button onclick="messageRapide('paiement')">💳 Paiement</button><button onclick="messageRapide('livraison')">🚚 Livraison</button></div>
-</div></section>
+<div class="card">
+<input id="nomClient" placeholder="Nom et prénom">
+<input id="telephoneClient" placeholder="Téléphone">
+<input id="adresseClient" placeholder="Adresse de livraison">
 
-<section id="compte"><h2>👤 Mon compte</h2><div id="zoneCompte"></div></section>
+<h2>💳 Paiement</h2>
 
-<section id="admin"><h2>⚙️ Administration</h2>
-<div id="connexionAdmin"><div class="form-box"><h3>Connexion administrateur</h3>
-<input id="adminNom" placeholder="Nom"><input id="adminMotDePasse" type="password" placeholder="Mot de passe">
-<button onclick="connexionAdmin()">Se connecter</button><p>Démo : admin / 1234</p></div></div>
-<div id="dashboardAdmin" style="display:none"><button onclick="deconnexionAdmin()">Déconnexion</button><h2>📊 Tableau de bord</h2>
-<div class="stats"><div class="stat">Commandes<strong id="statCommandes">0</strong></div><div class="stat">Chiffre d'affaires<strong id="statRevenu">0</strong></div><div class="stat">Produits<strong id="statProduits">0</strong></div></div>
-<h2>➕ Ajouter un produit</h2><div class="form-box"><input id="nouveauNom" placeholder="Nom du produit"><input id="nouveauPrix" type="number" placeholder="Prix en FCFA">
-<select id="nouvelleCategorie"><option>Vêtements</option><option>Chaussures</option><option>Accessoires</option></select>
-<input id="nouvelleImage" placeholder="URL de l'image"><textarea id="nouvelleDescription" placeholder="Description"></textarea><button onclick="ajouterProduitAdmin()">Ajouter</button></div>
-<h2>📦 Commandes</h2><div id="listeCommandesAdmin"></div></div></section>
+<select id="modePaiement">
+<option value="Mobile Money">Mobile Money</option>
+<option value="Paiement à la livraison">Paiement à la livraison</option>
+</select>
 
-<section id="apropos"><h2>À propos</h2><p>NovaWeb est une boutique en ligne créée comme projet d'apprentissage.</p></section>
-<section id="contact"><h2>📞 Contact</h2><p>Téléphone : +225 XX XX XX XX XX</p><p>Email : contact@novaweb.com</p></section>
-<footer><p>© 2026 NovaWeb - Tous droits réservés</p></footer>
+<p><strong>Paiement Wave : 0101136457</strong></p>
 
-<div id="modalProduit" class="modal"><div class="modal-content"><button onclick="fermerModal()">✕</button><div id="detailsProduit"></div></div></div>
-<div id="notification" class="notification"><button onclick="fermerNotification()">✕</button><strong>🔔 NovaWeb</strong><p id="texteNotification"></p></div>
+<button onclick="confirmerCommande()">Confirmer la commande</button>
+
+<div id="resultatCommande"></div>
+</div>
+</section>
+
+<section id="favoris">
+<h2>❤️ Mes favoris</h2>
+<div id="listeFavoris"></div>
+</section>
+
+<section id="suivi">
+<h2>🔎 Suivi de commande</h2>
+<input id="numeroSuivi" placeholder="Numéro de commande">
+<button onclick="suivreCommande()">Suivre</button>
+<div id="resultatSuivi"></div>
+</section>
+
+<section id="avis">
+<h2>⭐ Avis clients</h2>
+
+<div class="card">
+<input id="nomAvis" placeholder="Votre nom">
+
+<select id="noteAvis">
+<option value="5">⭐⭐⭐⭐⭐</option>
+<option value="4">⭐⭐⭐⭐</option>
+<option value="3">⭐⭐⭐</option>
+<option value="2">⭐⭐</option>
+<option value="1">⭐</option>
+</select>
+
+<textarea id="texteAvis" placeholder="Votre avis"></textarea>
+<button onclick="ajouterAvis()">Publier mon avis</button>
+</div>
+
+<div id="listeAvis"></div>
+</section>
+
+<section id="chat">
+<h2>💬 Chat NovaWeb</h2>
+
+<div class="card">
+<div id="messagesChat"></div>
+
+<button onclick="repondreChat('Produits')">Produits</button>
+<button onclick="repondreChat('Commande')">Commande</button>
+<button onclick="repondreChat('Paiement')">Paiement</button>
+<button onclick="repondreChat('Livraison')">Livraison</button>
+
+<input id="messageChat" placeholder="Écrire un message...">
+<button onclick="envoyerMessage()">Envoyer</button>
+</div>
+</section>
+
+<section id="compte">
+<h2>👤 Mon compte</h2>
+
+<div class="card">
+<input id="nomCompte" placeholder="Nom">
+<input id="emailCompte" placeholder="Email">
+<input id="motPasseCompte" type="password" placeholder="Mot de passe">
+
+<button onclick="creerCompte()">Créer un compte</button>
+<button onclick="connexion()">Se connecter</button>
+
+<div id="resultatCompte"></div>
+</div>
+</section>
+
+<section id="admin">
+<h2>⚙️ Administration</h2>
+
+<div class="card">
+<p><strong>Connexion administrateur</strong></p>
+
+<input id="adminNom" placeholder="Nom administrateur">
+<input id="adminPass" type="password" placeholder="Mot de passe">
+
+<button onclick="connexionAdmin()">Se connecter</button>
+
+<div id="zoneAdmin" class="hidden">
+
+<h3>📊 Tableau de bord</h3>
+
+<p>Commandes : <span id="nombreCommandes">0</span></p>
+<p>Chiffre d'affaires : <span id="chiffreAffaires">0</span> FCFA</p>
+<p>Produits : <span id="nombreProduits">0</span></p>
+
+<hr>
+
+<h3>➕ Ajouter un produit</h3>
+
+<input id="nouveauNom" placeholder="Nom du produit">
+<input id="nouveauPrix" type="number" placeholder="Prix en FCFA">
+
+<select id="nouvelleCategorie">
+<option value="Vêtements">Vêtements</option>
+<option value="Chaussures">Chaussures</option>
+<option value="Accessoires">Accessoires</option>
+</select>
+
+<input id="nouvelleImage" placeholder="URL de l'image">
+<textarea id="nouvelleDescription" placeholder="Description du produit"></textarea>
+
+<button onclick="ajouterProduit()">Ajouter le produit</button>
+
+<h3>📦 Commandes</h3>
+<div id="listeCommandesAdmin"></div>
+
+</div>
+</div>
+</section>
+
+<section id="contact">
+<h2>📞 Contact</h2>
+
+<div class="card">
+<p>📱 Téléphone : <strong>0101136457</strong></p>
+<p>📧 Email : <strong>ouattaramohamedarek@gmail.com</strong></p>
+<p>💳 Paiement Wave : <strong>0101136457</strong></p>
+</div>
+</section>
+
+<footer>
+<p>© 2026 NovaWeb - Tous droits réservés</p>
+<p>Votre boutique en ligne</p>
+</footer>
+
+<div id="notification"></div>
 
 <script>
-let produits=JSON.parse(localStorage.getItem("novawebProduits"))||[
-{id:1,nom:"T-shirt NovaWeb",prix:10000,categorie:"Vêtements",image:"https://placehold.co/400x300?text=T-shirt",description:"T-shirt officiel NovaWeb."},
-{id:2,nom:"Casquette NovaWeb",prix:15000,categorie:"Accessoires",image:"https://placehold.co/400x300?text=Casquette",description:"Casquette NovaWeb."},
-{id:3,nom:"Chaussures NovaWeb",prix:25000,categorie:"Chaussures",image:"https://placehold.co/400x300?text=Chaussures",description:"Chaussures NovaWeb."},
-{id:4,nom:"Sac NovaWeb",prix:20000,categorie:"Accessoires",image:"https://placehold.co/400x300?text=Sac",description:"Sac NovaWeb."},
-{id:5,nom:"Sweat NovaWeb",prix:18000,categorie:"Vêtements",image:"https://placehold.co/400x300?text=Sweat",description:"Sweat confortable NovaWeb."},
-{id:6,nom:"Montre NovaWeb",prix:30000,categorie:"Accessoires",image:"https://placehold.co/400x300?text=Montre",description:"Montre NovaWeb."}];
-let panier=JSON.parse(localStorage.getItem("novawebPanier"))||[];
-let favoris=JSON.parse(localStorage.getItem("novawebFavoris"))||[];
-let commandes=JSON.parse(localStorage.getItem("novawebCommandes"))||[];
-let avis=JSON.parse(localStorage.getItem("novawebAvis"))||[];
-let utilisateurs=JSON.parse(localStorage.getItem("novawebUtilisateurs"))||[];
-let utilisateurConnecte=JSON.parse(localStorage.getItem("novawebUtilisateurConnecte"))||null;
-let chat=JSON.parse(localStorage.getItem("novawebChat"))||[];
-let categorieActuelle="Tous",noteSelectionnee=0,adminConnecte=false;
 
-function afficherNotification(m){let n=document.getElementById("notification");document.getElementById("texteNotification").textContent=m;n.style.display="block";setTimeout(()=>n.style.display="none",6000)}
-function fermerNotification(){document.getElementById("notification").style.display="none"}
-function sauvegarderProduits(){localStorage.setItem("novawebProduits",JSON.stringify(produits))}
-function choisirCategorie(c){categorieActuelle=c;afficherProduits()}
-function afficherProduits(){let z=document.getElementById("listeProduits"),r=document.getElementById("recherche").value.toLowerCase();z.innerHTML="";
-produits.filter(p=>p.nom.toLowerCase().includes(r)&&(categorieActuelle==="Tous"||p.categorie===categorieActuelle)).forEach(p=>{z.innerHTML+=`<div class="produit"><img src="${p.image}"><h3>${p.nom}</h3><p>${p.description}</p><p class="prix">${p.prix.toLocaleString()} FCFA</p><button onclick="ajouterProduit(${p.id})">🛒 Ajouter</button><button onclick="ouvrirProduit(${p.id})">👁️ Voir</button><button onclick="toggleFavori(${p.id})">${favoris.includes(p.id)?"❤️ Favori":"♡ Ajouter aux favoris"}</button></div>`})}
-function ajouterProduit(id){let p=produits.find(x=>x.id===id);if(!p)return;panier.push({id:p.id,nom:p.nom,prix:p.prix});localStorage.setItem("novawebPanier",JSON.stringify(panier));afficherPanier();afficherNotification("🛒 "+p.nom+" ajouté au panier.")}
-function afficherPanier(){let z=document.getElementById("contenuPanier");z.innerHTML="";let total=0;panier.forEach((p,i)=>{total+=p.prix;z.innerHTML+=`<div class="cart-item"><strong>${p.nom}</strong><p>${p.prix.toLocaleString()} FCFA</p><button onclick="supprimerDuPanier(${i})">❌ Supprimer</button></div>`});document.getElementById("totalPanier").textContent="Total : "+total.toLocaleString()+" FCFA"}
-function supprimerDuPanier(i){panier.splice(i,1);localStorage.setItem("novawebPanier",JSON.stringify(panier));afficherPanier()}
-function viderPanier(){panier=[];localStorage.setItem("novawebPanier",JSON.stringify(panier));afficherPanier();afficherNotification("🗑️ Panier vidé.")}
-function toggleFavori(id){let i=favoris.indexOf(id),p=produits.find(x=>x.id===id);if(i<0){favoris.push(id);afficherNotification("❤️ "+p.nom+" ajouté aux favoris.")}else{favoris.splice(i,1);afficherNotification("💔 Produit retiré des favoris.")}localStorage.setItem("novawebFavoris",JSON.stringify(favoris));afficherProduits();afficherFavoris()}
-function afficherFavoris(){let z=document.getElementById("listeFavoris");z.innerHTML="";let f=produits.filter(p=>favoris.includes(p.id));if(!f.length){z.innerHTML="<p>Vous n'avez aucun favori.</p>";return}f.forEach(p=>z.innerHTML+=`<div class="produit"><img src="${p.image}"><h3>${p.nom}</h3><p class="prix">${p.prix.toLocaleString()} FCFA</p><button onclick="ajouterProduit(${p.id})">🛒 Ajouter au panier</button><button onclick="toggleFavori(${p.id})">💔 Retirer</button></div>`)}
-function ouvrirProduit(id){let p=produits.find(x=>x.id===id);if(!p)return;document.getElementById("detailsProduit").innerHTML=`<img src="${p.image}" style="width:100%;border-radius:10px"><h2>${p.nom}</h2><p>${p.description}</p><h3 class="prix">${p.prix.toLocaleString()} FCFA</h3><button onclick="ajouterProduit(${p.id})">🛒 Ajouter au panier</button>`;document.getElementById("modalProduit").style.display="block"}
-function fermerModal(){document.getElementById("modalProduit").style.display="none"}
-function ouvrirCommande(){if(!panier.length){alert("Votre panier est vide.");return}document.getElementById("commande").style.display="block";document.getElementById("commande").scrollIntoView()}
-function passerAuPaiement(){if(!document.getElementById("nomClient").value.trim()||!document.getElementById("telephoneClient").value.trim()||!document.getElementById("adresseClient").value.trim()){alert("Veuillez remplir tous les champs.");return}document.getElementById("paiement").style.display="block";document.getElementById("paiement").scrollIntoView()}
-function afficherChampMobile(){document.getElementById("champMobile").innerHTML=document.getElementById("modePaiement").value==="Mobile Money"?'<input id="numeroMobile" placeholder="Numéro Mobile Money"><p>⚠️ Simulation : aucun argent réel ne sera débité.</p>':""}
-function obtenirStatut(c){return c.statut||"En attente"}
-function confirmerCommande(){let mode=document.getElementById("modePaiement").value;if(!mode){alert("Choisissez un mode de paiement.");return}if(mode==="Mobile Money"&&!document.getElementById("numeroMobile").value.trim()){alert("Entrez votre numéro Mobile Money.");return}
-let total=panier.reduce((s,p)=>s+p.prix,0),num="NW-"+Math.floor(100000+Math.random()*900000);
-commandes.push({numero:num,client:document.getElementById("nomClient").value.trim(),telephone:document.getElementById("telephoneClient").value.trim(),adresse:document.getElementById("adresseClient").value.trim(),total,paiement:mode,date:new Date().toLocaleString(),statut:"En attente",email:utilisateurConnecte?utilisateurConnecte.email:null,produits:[...panier]});
-localStorage.setItem("novawebCommandes",JSON.stringify(commandes));panier=[];localStorage.setItem("novawebPanier",JSON.stringify(panier));afficherPanier();alert("Commande confirmée !\n\nNuméro : "+num);afficherNotification("📦 Commande "+num+" créée avec succès.");document.getElementById("paiement").style.display="none"}
-function suivreCommande(){let n=document.getElementById("numeroSuivi").value.trim().toUpperCase(),c=commandes.find(x=>x.numero.toUpperCase()===n),z=document.getElementById("resultatSuivi");if(!c){z.innerHTML="<p>❌ Commande introuvable.</p>";return}z.innerHTML=`<div class="commande-item"><h3>📦 ${c.numero}</h3><p>Client : ${c.client}</p><p>Total : ${c.total.toLocaleString()} FCFA</p><p>Paiement : ${c.paiement}</p><p>Date : ${c.date}</p><p>Statut : <strong class="status">${obtenirStatut(c)}</strong></p></div>`}
-function choisirNote(n){noteSelectionnee=n;document.querySelectorAll(".star").forEach((s,i)=>s.classList.toggle("active",i<n))}
-function ajouterAvis(){let n=document.getElementById("nomAvis").value.trim(),t=document.getElementById("texteAvis").value.trim();if(!n||!t||!noteSelectionnee){alert("Veuillez remplir les champs et choisir une note.");return}avis.push({nom:n,texte:t,note:noteSelectionnee,date:new Date().toLocaleDateString()});localStorage.setItem("novawebAvis",JSON.stringify(avis));document.getElementById("nomAvis").value="";document.getElementById("texteAvis").value="";choisirNote(0);afficherAvis();afficherNotification("⭐ Votre avis a été publié.")}
-function afficherAvis(){let z=document.getElementById("listeAvis");z.innerHTML="";avis.forEach(a=>z.innerHTML+=`<div class="avis-item"><strong>${a.nom}</strong><p>${"⭐".repeat(a.note)}</p><p>${a.texte}</p><small>${a.date}</small></div>`)}
-function ajouterMessageChat(a,m){chat.push({auteur:a,message:m});localStorage.setItem("novawebChat",JSON.stringify(chat));afficherChat()}
-function afficherChat(){let z=document.getElementById("messagesChat");z.innerHTML="";chat.forEach(m=>z.innerHTML+=`<p><strong>${m.auteur} :</strong> ${m.message}</p>`);z.scrollTop=z.scrollHeight}
-function envoyerMessage(){let i=document.getElementById("messageChat"),m=i.value.trim();if(!m)return;ajouterMessageChat("Vous",m);i.value="";setTimeout(()=>repondreChat(m),400)}
-function repondreChat(m){let t=m.toLowerCase(),r="Je suis l'assistant NovaWeb. Comment puis-je vous aider ?";if(/bonjour|salut|hello/.test(t))r="Bonjour 👋 Bienvenue sur NovaWeb !";else if(/produit|acheter|prix/.test(t))r="Vous pouvez consulter tous nos produits dans la section Produits.";else if(/commande|suivi|numéro/.test(t))r="Utilisez la section 🔎 Suivi pour rechercher votre commande.";else if(/paiement|payer/.test(t))r="Nous proposons Mobile Money ou le paiement à la livraison.";else if(/livraison|adresse/.test(t))r="La livraison se fait à l'adresse indiquée lors de la commande.";else if(/merci/.test(t))r="Avec plaisir 😊";ajouterMessageChat("NovaWeb",r)}
-function messageRapide(t){envoyerMessageRapide(t==="produits"?"Quels sont vos produits ?":t==="commande"?"Comment suivre ma commande ?":t==="paiement"?"Quels sont les moyens de paiement ?":"Comment fonctionne la livraison ?")}
-function envoyerMessageRapide(m){document.getElementById("messageChat").value=m;envoyerMessage()}
+let produits = JSON.parse(localStorage.getItem("novawebProduits")) || [
+{
+id:1,
+nom:"T-shirt NovaWeb",
+prix:10000,
+categorie:"Vêtements",
+image:"",
+description:"T-shirt NovaWeb"
+},
+{
+id:2,
+nom:"Casquette NovaWeb",
+prix:15000,
+categorie:"Accessoires",
+image:"",
+description:"Casquette NovaWeb"
+},
+{
+id:3,
+nom:"Chaussures NovaWeb",
+prix:25000,
+categorie:"Chaussures",
+image:"",
+description:"Chaussures NovaWeb"
+},
+{
+id:4,
+nom:"Sac NovaWeb",
+prix:20000,
+categorie:"Accessoires",
+image:"",
+description:"Sac NovaWeb"
+},
+{
+id:5,
+nom:"Sweat NovaWeb",
+prix:18000,
+categorie:"Vêtements",
+image:"",
+description:"Sweat NovaWeb"
+},
+{
+id:6,
+nom:"Montre NovaWeb",
+prix:30000,
+categorie:"Accessoires",
+image:"",
+description:"Montre NovaWeb"
+}
+];
 
-function afficherCompte(){let z=document.getElementById("zoneCompte");if(!utilisateurConnecte){z.innerHTML=`<div class="form-box"><h3>Créer un compte</h3><input id="inscriptionNom" placeholder="Nom complet"><input id="inscriptionTelephone" placeholder="Téléphone"><input id="inscriptionEmail" type="email" placeholder="Email"><input id="inscriptionMotDePasse" type="password" placeholder="Mot de passe"><button onclick="creerCompte()">Créer mon compte</button></div><div class="form-box"><h3>🔐 Se connecter</h3><input id="connexionEmail" type="email" placeholder="Email"><input id="connexionMotDePasse" type="password" placeholder="Mot de passe"><button onclick="connexionClient()">Se connecter</button></div>`;return}
-let mc=commandes.filter(c=>c.email===utilisateurConnecte.email);z.innerHTML=`<div class="compte-connecte"><h3>👋 Bonjour ${utilisateurConnecte.nom}</h3><p>📧 ${utilisateurConnecte.email}</p><p>📱 ${utilisateurConnecte.telephone}</p><button onclick="deconnexionClient()">🚪 Se déconnecter</button></div><h3>📦 Mes commandes</h3><div id="mesCommandes"></div>`;let q=document.getElementById("mesCommandes");if(!mc.length)q.innerHTML="<p>Vous n'avez encore aucune commande.</p>";else mc.forEach(c=>q.innerHTML+=`<div class="commande-item"><h3>${c.numero}</h3><p>Total : ${c.total.toLocaleString()} FCFA</p><p>Date : ${c.date}</p><p>Statut : <strong class="status">${obtenirStatut(c)}</strong></p></div>`)}
-function creerCompte(){let n=document.getElementById("inscriptionNom").value.trim(),t=document.getElementById("inscriptionTelephone").value.trim(),e=document.getElementById("inscriptionEmail").value.trim().toLowerCase(),p=document.getElementById("inscriptionMotDePasse").value;if(!n||!t||!e||!p){alert("Veuillez remplir tous les champs.");return}if(utilisateurs.some(u=>u.email===e)){alert("Un compte existe déjà avec cet email.");return}let u={nom:n,telephone:t,email:e,motDePasse:p};utilisateurs.push(u);localStorage.setItem("novawebUtilisateurs",JSON.stringify(utilisateurs));utilisateurConnecte=u;localStorage.setItem("novawebUtilisateurConnecte",JSON.stringify(u));afficherCompte();afficherNotification("👤 Votre compte a été créé.")}
-function connexionClient(){let e=document.getElementById("connexionEmail").value.trim().toLowerCase(),p=document.getElementById("connexionMotDePasse").value,u=utilisateurs.find(x=>x.email===e&&x.motDePasse===p);if(!u){alert("Email ou mot de passe incorrect.");return}utilisateurConnecte=u;localStorage.setItem("novawebUtilisateurConnecte",JSON.stringify(u));afficherCompte();afficherNotification("👋 Bienvenue "+u.nom+" !")}
-function deconnexionClient(){utilisateurConnecte=null;localStorage.removeItem("novawebUtilisateurConnecte");afficherCompte();afficherNotification("🚪 Vous êtes déconnecté.")}
+let panier=JSON.parse(localStorage.getItem("novawebPanier")) || [];
+let favoris=JSON.parse(localStorage.getItem("novawebFavoris")) || [];
+let commandes=JSON.parse(localStorage.getItem("novawebCommandes")) || [];
+let avis=JSON.parse(localStorage.getItem("novawebAvis")) || [];
+let utilisateurs=JSON.parse(localStorage.getItem("novawebUtilisateurs")) || [];
 
-function connexionAdmin(){if(document.getElementById("adminNom").value==="admin"&&document.getElementById("adminMotDePasse").value==="1234"){adminConnecte=true;document.getElementById("connexionAdmin").style.display="none";document.getElementById("dashboardAdmin").style.display="block";afficherDashboard();afficherNotification("⚙️ Connexion administrateur réussie.")}else alert("Identifiants incorrects.")}
-function deconnexionAdmin(){adminConnecte=false;document.getElementById("connexionAdmin").style.display="block";document.getElementById("dashboardAdmin").style.display="none";afficherNotification("🚪 Administrateur déconnecté.")}
-function afficherDashboard(){document.getElementById("statCommandes").textContent=commandes.length;document.getElementById("statRevenu").textContent=commandes.reduce((s,c)=>s+c.total,0).toLocaleString()+" FCFA";document.getElementById("statProduits").textContent=produits.length;afficherCommandesAdmin()}
-function afficherCommandesAdmin(){let z=document.getElementById("listeCommandesAdmin");z.innerHTML="";commandes.forEach((c,i)=>z.innerHTML+=`<div class="commande-item"><h3>📦 ${c.numero}</h3><p>Client : ${c.client}</p><p>Téléphone : ${c.telephone}</p><p>Adresse : ${c.adresse}</p><p>Total : ${c.total.toLocaleString()} FCFA</p><p>Paiement : ${c.paiement}</p><p>Date : ${c.date}</p><label>Statut :</label><select onchange="changerStatutCommande(${i},this.value)"><option ${obtenirStatut(c)==="En attente"?"selected":""}>En attente</option><option ${obtenirStatut(c)==="En préparation"?"selected":""}>En préparation</option><option ${obtenirStatut(c)==="Expédiée"?"selected":""}>Expédiée</option><option ${obtenirStatut(c)==="Livrée"?"selected":""}>Livrée</option></select><button onclick="supprimerCommandeAdmin(${i})">🗑️ Supprimer</button></div>`)}
-function changerStatutCommande(i,s){let c=commandes[i];if(!c)return;let a=obtenirStatut(c);c.statut=s;localStorage.setItem("novawebCommandes",JSON.stringify(commandes));afficherCommandesAdmin();afficherDashboard();if(a!==s)afficherNotification("🔔 Commande "+c.numero+" : "+s);if(utilisateurConnecte&&c.email===utilisateurConnecte.email)afficherCompte()}
-function supprimerCommandeAdmin(i){commandes.splice(i,1);localStorage.setItem("novawebCommandes",JSON.stringify(commandes));afficherDashboard();afficherNotification("🗑️ Commande supprimée.")}
-function ajouterProduitAdmin(){let n=document.getElementById("nouveauNom").value.trim(),p=Number(document.getElementById("nouveauPrix").value),c=document.getElementById("nouvelleCategorie").value,img=document.getElementById("nouvelleImage").value.trim()||"https://placehold.co/400x300?text=NovaWeb",d=document.getElementById("nouvelleDescription").value.trim()||"Produit NovaWeb.";if(!n||!p){alert("Nom et prix obligatoires.");return}produits.push({id:Date.now(),nom:n,prix:p,categorie:c,image:img,description:d});sauvegarderProduits();afficherProduits();afficherDashboard();["nouveauNom","nouveauPrix","nouvelleImage","nouvelleDescription"].forEach(id=>document.getElementById(id).value="");afficherNotification("✅ Produit ajouté.")}
+let categorieActuelle="Tous";
 
-afficherProduits();afficherPanier();afficherFavoris();afficherAvis();afficherChat();afficherCompte();
+function sauvegarder(){
+localStorage.setItem("novawebProduits",JSON.stringify(produits));
+localStorage.setItem("novawebPanier",JSON.stringify(panier));
+localStorage.setItem("novawebFavoris",JSON.stringify(favoris));
+localStorage.setItem("novawebCommandes",JSON.stringify(commandes));
+localStorage.setItem("novawebAvis",JSON.stringify(avis));
+localStorage.setItem("novawebUtilisateurs",JSON.stringify(utilisateurs));
+}
+
+function changerCategorie(cat){
+categorieActuelle=cat;
+afficherProduits();
+}
+
+function afficherProduits(){
+
+let recherche=document.getElementById("recherche").value.toLowerCase();
+
+let liste=produits.filter(p=>{
+return (categorieActuelle==="Tous" || p.categorie===categorieActuelle)
+&& p.nom.toLowerCase().includes(recherche);
+});
+
+let zone=document.getElementById("listeProduits");
+
+zone.innerHTML="";
+
+liste.forEach(p=>{
+
+let image=p.image
+? `<img src="${p.image}" alt="${p.nom}">`
+: `<div style="height:180px;background:#eee;display:flex;align-items:center;justify-content:center;border-radius:8px">📦</div>`;
+
+zone.innerHTML+=`
+<div class="produit">
+${image}
+<h3>${p.nom}</h3>
+<p>${p.description}</p>
+<p class="prix">${p.prix.toLocaleString()} FCFA</p>
+
+<button onclick="ajouterPanier(${p.id})">🛒 Ajouter</button>
+<button onclick="ajouterFavori(${p.id})">❤️</button>
+</div>
+`;
+});
+}
+
+function ajouterPanier(id){
+
+let produit=produits.find(p=>p.id===id);
+
+if(produit){
+panier.push(produit);
+sauvegarder();
+afficherPanier();
+notification("Produit ajouté au panier !");
+}
+}
+
+function afficherPanier(){
+
+let zone=document.getElementById("contenuPanier");
+zone.innerHTML="";
+
+let total=0;
+
+if(panier.length===0){
+zone.innerHTML="<p>Votre panier est vide.</p>";
+}
+
+panier.forEach((p,index)=>{
+
+total+=p.prix;
+
+zone.innerHTML+=`
+<div class="card">
+<strong>${p.nom}</strong>
+<p>${p.prix.toLocaleString()} FCFA</p>
+<button onclick="supprimerPanier(${index})">Supprimer</button>
+</div>
+`;
+});
+
+document.getElementById("total").textContent=total.toLocaleString();
+}
+
+function supprimerPanier(index){
+panier.splice(index,1);
+sauvegarder();
+afficherPanier();
+}
+
+function viderPanier(){
+panier=[];
+sauvegarder();
+afficherPanier();
+}
+
+function allerCommander(){
+document.getElementById("commande").scrollIntoView();
+}
+
+function confirmerCommande(){
+
+if(panier.length===0){
+alert("Votre panier est vide.");
+return;
+}
+
+let nom=document.getElementById("nomClient").value;
+let telephone=document.getElementById("telephoneClient").value;
+let adresse=document.getElementById("adresseClient").value;
+let paiement=document.getElementById("modePaiement").value;
+
+if(!nom || !telephone || !adresse){
+alert("Veuillez remplir les informations de livraison.");
+return;
+}
+
+let numero="NW-"+Math.floor(100000+Math.random()*900000);
+
+let total=panier.reduce((s,p)=>s+p.prix,0);
+
+let commande={
+numero:numero,
+nom:nom,
+telephone:telephone,
+adresse:adresse,
+paiement:paiement,
+produits:[...panier],
+total:total,
+statut:"En attente",
+date:new Date().toLocaleString()
+};
+
+commandes.push(commande);
+
+panier=[];
+
+sauvegarder();
+
+afficherPanier();
+afficherAdmin();
+
+document.getElementById("resultatCommande").innerHTML=`
+<div class="card">
+<h3>✅ Commande enregistrée</h3>
+<p>Numéro de commande : <strong>${numero}</strong></p>
+<p>Statut : <strong>En attente</strong></p>
+<p>Total : <strong>${total.toLocaleString()} FCFA</strong></p>
+</div>
+`;
+
+notification("Commande enregistrée !");
+}
+
+function ajouterFavori(id){
+
+if(!favoris.includes(id)){
+favoris.push(id);
+sauvegarder();
+afficherFavoris();
+notification("Ajouté aux favoris !");
+}else{
+notification("Ce produit est déjà dans vos favoris.");
+}
+}
+
+function afficherFavoris(){
+
+let zone=document.getElementById("listeFavoris");
+
+zone.innerHTML="";
+
+if(favoris.length===0){
+zone.innerHTML="<p>Aucun favori.</p>";
+return;
+}
+
+favoris.forEach(id=>{
+
+let p=produits.find(x=>x.id===id);
+
+if(p){
+zone.innerHTML+=`
+<div class="card">
+<h3>${p.nom}</h3>
+<p>${p.prix.toLocaleString()} FCFA</p>
+<button onclick="ajouterPanier(${p.id})">🛒 Ajouter au panier</button>
+</div>
+`;
+}
+});
+}
+
+function suivreCommande(){
+
+let numero=document.getElementById("numeroSuivi").value.trim();
+
+let commande=commandes.find(c=>c.numero===numero);
+
+let zone=document.getElementById("resultatSuivi");
+
+if(!commande){
+zone.innerHTML="<p>❌ Commande introuvable.</p>";
+return;
+}
+
+zone.innerHTML=`
+<div class="card">
+<h3>📦 Commande ${commande.numero}</h3>
+<p>Client : ${commande.nom}</p>
+<p>Total : ${commande.total.toLocaleString()} FCFA</p>
+<p>Statut : <strong>${commande.statut}</strong></p>
+</div>
+`;
+}
+
+function ajouterAvis(){
+
+let nom=document.getElementById("nomAvis").value;
+let note=document.getElementById("noteAvis").value;
+let texte=document.getElementById("texteAvis").value;
+
+if(!nom || !texte){
+alert("Veuillez remplir votre nom et votre avis.");
+return;
+}
+
+avis.push({
+nom:nom,
+note:note,
+texte:texte
+});
+
+sauvegarder();
+
+document.getElementById("nomAvis").value="";
+document.getElementById("texteAvis").value="";
+
+afficherAvis();
+
+notification("Merci pour votre avis !");
+}
+
+function afficherAvis(){
+
+let zone=document.getElementById("listeAvis");
+zone.innerHTML="";
+
+avis.forEach(a=>{
+
+zone.innerHTML+=`
+<div class="card">
+<strong>${a.nom}</strong>
+<div class="etoile">${"⭐".repeat(Number(a.note))}</div>
+<p>${a.texte}</p>
+</div>
+`;
+});
+}
+
+function repondreChat(type){
+
+let message="";
+
+if(type==="Produits"){
+message="Nous avons plusieurs produits disponibles dans les catégories vêtements, chaussures et accessoires.";
+}
+
+if(type==="Commande"){
+message="Pour commander, ajoutez un produit au panier puis appuyez sur Commander.";
+}
+
+if(type==="Paiement"){
+message="Le paiement Wave se fait au numéro 0101136457. Le paiement sur ce site est actuellement simulé.";
+}
+
+if(type==="Livraison"){
+message="Veuillez renseigner votre nom, téléphone et adresse lors de la commande.";
+}
+
+ajouterMessageChat("NovaWeb",message);
+}
+
+function ajouterMessageChat(auteur,message){
+
+let zone=document.getElementById("messagesChat");
+
+zone.innerHTML+=`
+<div class="chat-message">
+<strong>${auteur} :</strong> ${message}
+</div>
+`;
+
+zone.scrollTop=zone.scrollHeight;
+}
+
+function envoyerMessage(){
+
+let input=document.getElementById("messageChat");
+let message=input.value.trim();
+
+if(!message)return;
+
+ajouterMessageChat("Vous",message);
+
+input.value="";
+
+setTimeout(()=>{
+ajouterMessageChat("NovaWeb","Merci pour votre message. Pour une commande ou un paiement, utilisez les sections correspondantes.");
+},500);
+}
+
+function creerCompte(){
+
+let nom=document.getElementById("nomCompte").value;
+let email=document.getElementById("emailCompte").value;
+let pass=document.getElementById("motPasseCompte").value;
+
+if(!nom || !email || !pass){
+alert("Veuillez remplir tous les champs.");
+return;
+}
+
+utilisateurs.push({
+nom:nom,
+email:email,
+pass:pass
+});
+
+sauvegarder();
+
+document.getElementById("resultatCompte").innerHTML=
+"<p>✅ Compte créé avec succès.</p>";
+}
+
+function connexion(){
+
+let email=document.getElementById("emailCompte").value;
+let pass=document.getElementById("motPasseCompte").value;
+
+let utilisateur=utilisateurs.find(u=>u.email===email && u.pass===pass);
+
+if(utilisateur){
+document.getElementById("resultatCompte").innerHTML=
+"<p>✅ Bienvenue "+utilisateur.nom+" !</p>";
+}else{
+document.getElementById("resultatCompte").innerHTML=
+"<p>❌ Email ou mot de passe incorrect.</p>";
+}
+}
+
+function connexionAdmin(){
+
+let nom=document.getElementById("adminNom").value;
+let pass=document.getElementById("adminPass").value;
+
+if(nom==="admin" && pass==="1234"){
+
+document.getElementById("zoneAdmin").classList.remove("hidden");
+
+afficherAdmin();
+
+}else{
+
+alert("Identifiants administrateur incorrects.");
+
+}
+}
+
+function ajouterProduit(){
+
+let nom=document.getElementById("nouveauNom").value;
+let prix=Number(document.getElementById("nouveauPrix").value);
+let categorie=document.getElementById("nouvelleCategorie").value;
+let image=document.getElementById("nouvelleImage").value;
+let description=document.getElementById("nouvelleDescription").value;
+
+if(!nom || !prix){
+alert("Veuillez renseigner le nom et le prix.");
+return;
+}
+
+produits.push({
+id:Date.now(),
+nom:nom,
+prix:prix,
+categorie:categorie,
+image:image,
+description:description
+});
+
+sauvegarder();
+
+afficherProduits();
+afficherAdmin();
+
+document.getElementById("nouveauNom").value="";
+document.getElementById("nouveauPrix").value="";
+document.getElementById("nouvelleImage").value="";
+document.getElementById("nouvelleDescription").value="";
+
+notification("Produit ajouté !");
+}
+
+function afficherAdmin(){
+
+document.getElementById("nombreCommandes").textContent=commandes.length;
+document.getElementById("nombreProduits").textContent=produits.length;
+
+let chiffre=commandes.reduce((s,c)=>s+c.total,0);
+
+document.getElementById("chiffreAffaires").textContent=
+chiffre.toLocaleString();
+
+let zone=document.getElementById("listeCommandesAdmin");
+
+zone.innerHTML="";
+
+commandes.forEach((c,index)=>{
+
+zone.innerHTML+=`
+<div class="card">
+<h3>${c.numero}</h3>
+<p>Client : ${c.nom}</p>
+<p>Téléphone : ${c.telephone}</p>
+<p>Total : ${c.total.toLocaleString()} FCFA</p>
+<p>Statut : <strong>${c.statut}</strong></p>
+
+<select onchange="changerStatut(${index},this.value)">
+<option ${c.statut==="En attente"?"selected":""}>En attente</option>
+<option ${c.statut==="Confirmée"?"selected":""}>Confirmée</option>
+<option ${c.statut==="Expédiée"?"selected":""}>Expédiée</option>
+<option ${c.statut==="Livrée"?"selected":""}>Livrée</option>
+</select>
+</div>
+`;
+});
+}
+
+function changerStatut(index,statut){
+
+commandes[index].statut=statut;
+
+sauvegarder();
+
+afficherAdmin();
+
+notification("Statut mis à jour.");
+}
+
+function notification(message){
+
+let n=document.getElementById("notification");
+
+n.textContent=message;
+n.style.display="block";
+
+setTimeout(()=>{
+n.style.display="none";
+},2500);
+}
+
+afficherProduits();
+afficherPanier();
+afficherFavoris();
+afficherAvis();
+
 </script>
+
 </body>
 </html>
